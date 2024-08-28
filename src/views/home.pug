@@ -7,7 +7,13 @@ html(lang="en")
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body 
         header 
-            h1 It works!
+            h1 It Noom
         main
-            h2 Welcome to Noom
+            form#nick
+                input(type="text", placeholder="choose a nickname", required)
+                button Save
+            ul
+            form#message
+                input(type="text", placeholder="choose a nickname", required)
+                button Send
         script(src="/public/js/app.js")
