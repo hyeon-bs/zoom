@@ -17,11 +17,17 @@ wsServer.on("connection", (socket) => {
     socket.onAny((event) => {
         console.log(`Socket Event: ${event}`);
     });
-    socket.on("enter_room", (roomName, showRoom) => {
-        socket.join("roomName");
-        showRoom();
+    socket.on("enter_room", (roomName, done) => {
+        socket.join(roomName);
+        done();
         socket.to(roomName).emit("welcome");
-        console.log("socket id each browser: ", socket.id);
+    });
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach((room) => socket.to(room).emit("bye"));
+    });
+    socket.on("new_message", (msg, room, done) => {
+        socket.to(room).emit("new_message", msg);
+        done();
     });
 });
 
@@ -45,5 +51,5 @@ wss.on("connection", (socket) => {
     });
 });*/
 
-const handleListen = () => console.log(`listening on http://localhost:3000`);
+const handleListen = () => console.log(`Listening on http://localhost:3000`);
 httpServer.listen(3000, handleListen);
