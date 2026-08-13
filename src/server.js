@@ -1,6 +1,7 @@
 import http from "http";
 import express from "express";
-import SocketIO from "socket.io";
+import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 
 const app = express();
 
@@ -11,13 +12,67 @@ app.get("/", (_, res) => res.render("home"));
 app.get("/*", (_, res) => res.redirect("/"));
 
 const httpServer = http.createServer(app);
-const wsServer = SocketIO(httpServer);
+const wsServer = new Server(httpServer, {
+    cors: {
+      origin: ["https://admin.socket.io"],
+      credentials: true,
+    },
+});
+instrument(wsServer, {
+    auth: false,
+});
+
+function publicRooms() {
+    const {
+        sockets: {
+            adapter: { sids, rooms },
+        },
+    } = wsServer;
+    const publicRooms = []; 
+    rooms.forEach((_, key ) => {
+        if(sids.get(key) === undefined) {
+            publicRooms.push(key);
+        }
+    })
+    return publicRooms;
+}
+
+function countRoom(roomName) {
+    return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
 
 wsServer.on("connection", (socket) => {
-    socket.on("join_room", (roomName) => {
-        socket.join(roomName);
-        socket.to(roomName).emit("welcome");
+    // Chat
+    socket["nickname"] = "nickname";
+    socket.onAny((event) => {
+        console.log(wsServer.sockets.adapter);
+        console.log(`Socket Event: ${event}`);
     });
+    socket.on("join_room", (roomName, done) => {
+        // if (!wsServer.sockets.adapter.rooms.has(roomName)) {
+        //     done(false);
+        //     return;
+        // }
+        socket.join(roomName);
+        done();
+        console.log("방 입장 완료");
+        socket.to(roomName).emit("welcome", socket.nickname, `${countRoom(roomName)}명`);
+        socket.emit("room_change", publicRooms());
+    });
+
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach((room) => socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1));
+    });
+    socket.on("disconnect", () => {
+        wsServer.sockets.emit("room_change", publicRooms());
+    });
+    socket.on("new_message", (msg, room, done) => {
+        socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
+        done();
+    });
+    socket.on("nickname", (nickname) => (socket["nickname"] = nickname));
+    
+    // WebRTC
     socket.on("offer", (offer, roomName) => {
         socket.to(roomName).emit("offer", offer);
     });
