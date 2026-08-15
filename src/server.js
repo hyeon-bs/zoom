@@ -48,16 +48,16 @@ wsServer.on("connection", (socket) => {
         console.log(wsServer.sockets.adapter);
         console.log(`Socket Event: ${event}`);
     });
+    // 접속 즉시 현재 열린 방 목록 전송
+    socket.emit("room_change", publicRooms());
     socket.on("join_room", (roomName, done) => {
-        // if (!wsServer.sockets.adapter.rooms.has(roomName)) {
-        //     done(false);
-        //     return;
-        // }
         socket.join(roomName);
         done();
         console.log("방 입장 완료");
         socket.to(roomName).emit("welcome", socket.nickname, `${countRoom(roomName)}명`);
-        socket.emit("room_change", publicRooms());
+        // 전체에게 브로드캐스트 (웰컴 화면에 있는 모든 유저도 업데이트)
+        //console.log("welcome");
+        wsServer.sockets.emit("room_change", publicRooms());
     });
 
     socket.on("disconnecting", () => {

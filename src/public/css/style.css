@@ -1,0 +1,826 @@
+/* ============================================================
+   ZOOM VIDEO CHAT — DESIGN SYSTEM
+   ============================================================ */
+
+:root {
+  --bg-page:        #F9FAFB;
+  --bg-card:        #FFFFFF;
+  --bg-muted:       #F4F4F5;
+  --bg-dark:        #111113;
+
+  --border:         #E4E4E7;
+  --border-input:   #D4D4D8;
+
+  --text-primary:   #09090B;
+  --text-secondary: #3F3F46;
+  --text-muted:     #71717A;
+  --text-faint:     #A1A1AA;
+
+  --accent-dark:    #18181B;
+  --accent-hover:   #27272A;
+  --accent-blue:    #2563EB;
+  --accent-red:     #EF4444;
+
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg:  10px;
+  --radius-xl:  12px;
+  --radius-full: 9999px;
+
+  --shadow-pill: 0 4px 20px rgba(0, 0, 0, 0.10);
+  --shadow-pip:  0 4px 20px rgba(0, 0, 0, 0.40);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   PAGE: WELCOME (ROOM ENTRY)
+   ============================================================ */
+.page-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg-page);
+}
+
+.entry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.entry-header {
+  margin-bottom: 28px;
+}
+
+.entry-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.entry-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input {
+  background: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+
+.form-group input:focus {
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
+}
+
+.form-group input::placeholder {
+  color: var(--text-faint);
+}
+
+.btn-primary {
+  margin-top: 6px;
+  width: 100%;
+  background: var(--accent-dark);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  background: #09090B;
+}
+
+/* Open Rooms */
+.open-rooms {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.open-rooms-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.room-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.room-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.room-list li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  flex-shrink: 0;
+}
+
+.room-list li:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.room-list-empty {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  padding: 4px 10px;
+  font-style: italic;
+}
+
+/* ============================================================
+   PAGE: CALL (VIDEO MEETING + CHAT)
+   ============================================================ */
+.page-call {
+  display: flex;
+  height: 100vh;
+  background: var(--bg-page);
+  overflow: hidden;
+}
+
+/* ---- Video Area (left ~75%) ---- */
+.video-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.video-viewport {
+  flex: 1;
+  background: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+/* View Mode Bar */
+.view-mode-bar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  padding: 3px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.view-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11.5px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 5px 11px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.view-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.view-btn.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+/* ---- Video Container ---- */
+.video-container {
+  position: absolute;
+  inset: 0;
+  transition: all 0.3s ease;
+}
+
+.video-slot {
+  position: absolute;
+  overflow: hidden;
+}
+
+.video-slot video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #1a1a1e;
+}
+
+/* Name Badge */
+.name-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.52);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 4;
+  pointer-events: none;
+  letter-spacing: 0.01em;
+}
+
+/* ---- Mode: Remote Main (default) ---- */
+.video-container.mode-remote-main #peerSlot {
+  inset: 0;
+  z-index: 1;
+  border-radius: 0;
+}
+
+.video-container.mode-remote-main #mySlot {
+  bottom: 82px;
+  right: 18px;
+  width: 200px;
+  height: 148px;
+  z-index: 3;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  box-shadow: var(--shadow-pip);
+}
+
+/* ---- Mode: Local Main ---- */
+.video-container.mode-local-main #mySlot {
+  inset: 0;
+  z-index: 1;
+  border-radius: 0;
+}
+
+.video-container.mode-local-main #peerSlot {
+  bottom: 82px;
+  right: 18px;
+  width: 200px;
+  height: 148px;
+  z-index: 3;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  box-shadow: var(--shadow-pip);
+}
+
+/* ---- Mode: 50/50 Split ---- */
+.video-container.mode-split {
+  display: flex;
+  gap: 8px;
+  padding: 14px;
+  align-items: stretch;
+}
+
+.video-container.mode-split .video-slot {
+  position: relative;
+  flex: 1;
+  inset: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* ---- Control Bar (pill) ---- */
+.control-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  box-shadow: var(--shadow-pill);
+  white-space: nowrap;
+}
+
+.ctrl-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.ctrl-btn:hover {
+  background: var(--bg-muted);
+  border-color: var(--border);
+}
+
+.ctrl-btn.muted {
+  color: var(--accent-red);
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.ctrl-btn.camera-off {
+  color: var(--accent-red);
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.ctrl-btn--leave {
+  color: var(--accent-red);
+}
+
+.ctrl-btn--leave:hover {
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.separator {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.camera-select {
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--text-secondary);
+  background: var(--bg-muted);
+  outline: none;
+  max-width: 130px;
+  cursor: pointer;
+}
+
+.camera-select:focus {
+  border-color: var(--accent-dark);
+}
+
+/* ============================================================
+   CHAT SIDEBAR (right ~25%)
+   ============================================================ */
+.chat-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#room {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--bg-card);
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.room-label {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Message List */
+.message-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-list::-webkit-scrollbar { width: 4px; }
+.message-list::-webkit-scrollbar-track { background: transparent; }
+.message-list::-webkit-scrollbar-thumb {
+  background: var(--border-input);
+  border-radius: 2px;
+}
+
+/* System messages (join/leave) */
+.msg-system {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-faint);
+  padding: 4px 0;
+  position: relative;
+}
+
+.msg-system::before,
+.msg-system::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20%;
+  height: 1px;
+  background: var(--border);
+}
+.msg-system::before { left: 0; }
+.msg-system::after  { right: 0; }
+
+/* Message Item */
+.msg-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.msg-item.own {
+  align-items: flex-end;
+}
+
+.msg-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 0 4px;
+}
+
+.msg-sender {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.msg-time {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+.msg-bubble {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 220px;
+  word-break: break-word;
+}
+
+.msg-item:not(.own) .msg-bubble {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+  border-bottom-left-radius: 3px;
+}
+
+.msg-item.own .msg-bubble {
+  background: var(--accent-dark);
+  color: #FFFFFF;
+  border-bottom-right-radius: 3px;
+}
+
+/* Chat Input */
+.chat-input-form {
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+}
+
+.chat-input {
+  flex: 1;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  background: var(--bg-card);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-width: 0;
+}
+
+.chat-input:focus {
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 3px rgba(24,24,27,0.05);
+}
+
+.chat-input::placeholder {
+  color: var(--text-faint);
+}
+
+.chat-send-btn {
+  background: var(--accent-dark);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.chat-send-btn:hover {
+  background: var(--accent-hover);
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (≤ 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+  .chat-sidebar {
+    width: 240px;
+  }
+
+  .camera-select {
+    max-width: 90px;
+    font-size: 11px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ============================================================
+   Layout: 세로 스택 (video 위 / chat 아래)
+   Chat 패널은 토글 버튼으로 접고 펼 수 있음
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ---- Welcome 카드 ---- */
+  .entry-card {
+    padding: 24px 20px;
+    border-radius: var(--radius-lg);
+  }
+
+  .entry-title { font-size: 18px; }
+
+  /* ---- Call 페이지: 세로 스택 ---- */
+  .page-call {
+    flex-direction: column;
+  }
+
+  .video-area {
+    flex: none;
+    height: 56vh;          /* 비디오가 화면 56% 차지 */
+    min-height: 240px;
+  }
+
+  /* ---- Chat 사이드바 → 하단 패널 ---- */
+  .chat-sidebar {
+    width: 100%;
+    flex: 1;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    min-height: 0;
+    transition: flex 0.25s ease;
+  }
+
+  .chat-sidebar.collapsed {
+    flex: none;
+    height: 48px;          /* 헤더만 보임 */
+    overflow: hidden;
+  }
+
+  /* ---- 채팅 헤더: 모바일 토글 버튼 추가 ---- */
+  .chat-header {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .chat-toggle-icon {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .chat-sidebar.collapsed .chat-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  /* ---- PIP 윈도우 — 작게 ---- */
+  .video-container.mode-remote-main #mySlot,
+  .video-container.mode-local-main  #peerSlot {
+    width: 110px;
+    height: 82px;
+    bottom: 70px;
+    right: 10px;
+  }
+
+  /* ---- View Mode Bar ---- */
+  .view-mode-bar {
+    top: 8px;
+    right: 8px;
+  }
+
+  .view-btn {
+    font-size: 10.5px;
+    padding: 4px 8px;
+  }
+
+  /* ---- Control Bar ---- */
+  .control-bar {
+    bottom: 12px;
+    padding: 6px 12px;
+    gap: 4px;
+  }
+
+  .ctrl-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* 카메라 선택 셀렉트 — 모바일에서 숨김 (공간 부족) */
+  .camera-select,
+  .control-bar .separator:last-of-type {
+    display: none;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL PHONE (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+
+  .page-welcome {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .entry-card {
+    padding: 20px 16px;
+  }
+
+  .video-area {
+    height: 50vh;
+  }
+
+  .view-mode-bar {
+    /* 작은 폰에서는 버튼 텍스트 짧게 */
+    gap: 1px;
+  }
+
+  .view-btn {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .ctrl-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ctrl-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .msg-bubble {
+    max-width: 80vw;
+    font-size: 12.5px;
+  }
+
+  .chat-input-form {
+    padding: 10px 12px;
+  }
+
+  .chat-send-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
