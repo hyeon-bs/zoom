@@ -127,4 +127,10 @@ html(lang="ko")
 
 
         script(src="/socket.io/socket.io.js")
+        script.
+            window.turnConfig = {
+                urls: "#{turnUrl}",
+                username: "#{turnUsername}",
+                credential: "#{turnCredential}"
+            }
         script(src="/public/js/app.js")
