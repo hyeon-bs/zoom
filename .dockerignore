@@ -1,0 +1,5 @@
+node_modules
+.git
+.env
+src/public/js/Dockerfile
+src/public/js/.dockerignore

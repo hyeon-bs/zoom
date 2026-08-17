@@ -278,7 +278,7 @@ function showRoom() {
 // =====================================================================
 socket.on("welcome", async (user, newCount) => {
   peerBadge.textContent = user;
-  addMessage(`${user} 님이 입장하였습니다!`);
+  addMessage(`${user} 님이 입장하였습니다.`);
 
   // WebRTC — initiator side
   myDataChannel = myPeerConnection.createDataChannel("chat");
@@ -366,12 +366,13 @@ socket.on("ice", async (ice) => {
 //  RTC CONNECTION
 // =====================================================================
 function makeConnection() {
-  myPeerConnection = new RTCPeerConnection({
-    iceServers: [
-      {
-        urls: "stun:stun.l.google.com:19302"
-      }
-    ]
+   myPeerConnection = new RTCPeerConnection({                                    
+    iceServers: [                                                               
+      { 
+        urls: "stun:stun.l.google.com:19302" 
+      },
+      window.turnConfig                                                                    
+    ],
   });
   myPeerConnection.addEventListener("icecandidate", handleIce);
   // myPeerConnection.addEventListener("icecandidate", (event) => {
