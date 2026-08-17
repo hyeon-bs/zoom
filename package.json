@@ -4,7 +4,7 @@
   "description": "Zoom Clone using WebRTC and Websockets",
   "license": "MIT",
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "babel-node src/server.js",
     "dev": "nodemon",
     "dev:chat": "nodemon --exec \"babel-node 'src(chat)/server.js'\" --ignore \"src(chat)/public/*\"",
     "dev:video": "nodemon --exec \"babel-node 'src(video)/server.js'\" --ignore \"src(video)/public/*\""
