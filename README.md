@@ -4,8 +4,9 @@ Zoom Clone using NodeJS, WebRTC and WebSockets.
 
 > Nomad Coders의 [Zoom Clone Coding](https://nomadcoders.co/noom) 강의를 따라 구현한 화상 통화 웹 애플리케이션입니다.
 
+<img width="1688" height="1057" alt="Noom_v2" src="https://github.com/user-attachments/assets/1c2e2b25-b04a-4345-ae1a-dd3f9fd2eaee" />
 
-https://github.com/user-attachments/assets/cf43ee2b-292d-42bd-8c15-c717b8594959
+
 
 ## v2 주요 변경 사항
 
@@ -83,7 +84,7 @@ src/
 
 ```text
 ┌─────────────────┐
-│   사용자 A       │
+│   사용자 A        │
 │  Browser        │
 └────────┬────────┘
          │
@@ -91,16 +92,16 @@ src/
          │ Offer / Answer
          │ ICE Candidate
          ↓
-┌─────────────────┐
+┌──────────────────┐
 │ Signaling Server │
-│ Node.js +       │
-│ Socket.IO       │
-└────────┬────────┘
+│ Node.js +        │
+│ Socket.IO        │
+└────────┬─────────┘
          │
          │ Signaling
          ↓
 ┌─────────────────┐
-│   사용자 B       │
+│   사용자 B        │
 │  Browser        │
 └─────────────────┘
 
@@ -118,7 +119,7 @@ src/
        │
        │ WebRTC
        │
-       ├────────────── 직접 P2P 연결 ──────────────┐
+       ├────────────── 직접 P2P 연결 ────────────────┐
        │                                           │
        │                                           ▼
        │                                      사용자 B
