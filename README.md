@@ -237,23 +237,7 @@ TURN_CREDENTIAL
 
 ## 버전 이력
 
-### v2
-
-- 닉네임 입력 및 열린 룸 목록 표시
-- DataChannel 기반 실시간 채팅 UI 통합
-- TURN 서버 연동을 통한 다른 네트워크 간 WebRTC 연결 지원
-- 영상 보기 모드 전환
-- `.env` 기반 TURN 서버 설정
-- Docker 실행 환경 구성
-- Railway 클라우드 배포 지원
-
-### v1
-
-- 룸 이름을 이용한 화상 통화
-- WebRTC P2P 연결
-- Offer / Answer / ICE 기반 WebRTC 시그널링
-- Socket.IO 기반 시그널링 서버
-- 마이크 및 카메라 제어
-- 카메라 기기 전환
-- DataChannel 기반 실시간 채팅
-
+| 버전 | 내용 |
+|------|------|
+| v2.0 | 닉네임 입력 및 열린 룸 목록 · 채팅 UI 통합 · TURN 서버 연동 · 영상 보기 모드 전환 · .env 설정 · Docker · Railway 배포 |
+| v1.0 | 룸 기반 화상 통화 · WebRTC P2P · Offer/Answer/ICE 시그널링 · Socket.IO 서버 · 마이크/카메라 제어 및 기기 전환 · DataChannel 채팅 |
