@@ -148,10 +148,6 @@ RTCPeerConnection
        │
        ├── Video Track ────────▶ 상대방 영상
        │
-       ├── Audio Track ────────▶ 상대방 음성
-       │
-       └── DataChannel ────────▶ 실시간 채팅
-       │
        └── Audio Track ────────▶ 상대방 음성
 
  ※ 채팅은 위 미디어 스트림과 별도로 Socket.IO 시그널링 채널을 통해 전송됩니다.
