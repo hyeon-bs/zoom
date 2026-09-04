@@ -51,7 +51,7 @@ Zoom Clone using NodeJS, WebRTC and WebSockets.
   - 상대방 영상 중심
   - 내 영상 중심
   - 50:50 분할
-- DataChannel 기반 실시간 채팅
+- Socket.IO 기반 실시간 채팅
 
 ## 프로젝트 구조
 
@@ -77,7 +77,7 @@ src/
 6. 직접 P2P 연결이 가능한 경우 브라우저 간 WebRTC 연결을 수립합니다.
 7. 서로 다른 네트워크 환경에서 직접 연결이 어려운 경우 TURN 서버를 통해 미디어를 릴레이합니다.
 8. WebRTC 연결이 완료되면 영상과 음성 스트림이 상대방에게 전달됩니다.
-9. 연결된 PeerConnection의 DataChannel을 통해 실시간 채팅 메시지를 주고받습니다.
+9. Socket.IO를 통해 실시간 채팅 메시지를 주고받습니다.
 10. 룸 입장 및 퇴장 시 Socket.IO를 통해 룸 상태와 열린 룸 목록을 실시간으로 동기화합니다.
 
 ### WebRTC 연결 구조
@@ -151,6 +151,10 @@ RTCPeerConnection
        ├── Audio Track ────────▶ 상대방 음성
        │
        └── DataChannel ────────▶ 실시간 채팅
+       │
+       └── Audio Track ────────▶ 상대방 음성
+
+ ※ 채팅은 위 미디어 스트림과 별도로 Socket.IO 시그널링 채널을 통해 전송됩니다.
 ```
 
 ## TURN 서버 설정
@@ -240,4 +244,4 @@ TURN_CREDENTIAL
 | 버전 | 내용 |
 |------|------|
 | v2.0 | 닉네임 입력 및 열린 룸 목록 · 채팅 UI 통합 · TURN 서버 연동 · 영상 보기 모드 전환 · .env 설정 · Docker · Railway 배포 |
-| v1.0 | 룸 기반 화상 통화 · WebRTC P2P · Offer/Answer/ICE 시그널링 · Socket.IO 서버 · 마이크/카메라 제어 및 기기 전환 · DataChannel 채팅 |
+| v1.0 | 룸 기반 화상 통화 · WebRTC P2P · Offer/Answer/ICE 시그널링 · Socket.IO 서버 · 마이크/카메라 제어 및 기기 전환 · Socket.IO 채팅 |
